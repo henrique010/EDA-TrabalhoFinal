@@ -12,7 +12,7 @@ public class GraphUtils {
 	}
 	
 	public static AdjacencyListGraph<String> readFromFile(InputStream is, String sep) throws IOException{
-		AdjacencyListGraph<String> listGraph = new AdjacencyListGraph<String>(198990);
+		AdjacencyListGraph<String> listGraph = new AdjacencyListGraph<String>(500000);
 		
 		BufferedReader buffer = new BufferedReader(new InputStreamReader(is));
 		
