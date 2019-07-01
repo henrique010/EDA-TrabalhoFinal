@@ -43,9 +43,7 @@ public class AdjacencyListGraph<T> implements Graph<T>{
 		LinkedList<T> labels = (LinkedList<T>) tags.keys();
 		
 		for(T label : labels) {
-			if(tags.get(label) == index) {
-				return label;
-			}
+			if(index(label) == index) return label;
 		}
 		return null;
 	}
@@ -61,7 +59,6 @@ public class AdjacencyListGraph<T> implements Graph<T>{
 		if(!tags.contains(v1)) {
 			int index = currentVertices++;
 			tags.put(v1, index);
-			
 		} 
 		
 		if(!tags.contains(v2)) {
@@ -69,8 +66,8 @@ public class AdjacencyListGraph<T> implements Graph<T>{
 			tags.put(v2, index);
 		}
 		
-		adj[(int) tags.get(v1)].add(v2);
-		adj[(int) tags.get(v2)].add(v1);
+		adj[(int) index(v1)].add(v2);
+		adj[(int) index(v2)].add(v1);
 		
 		E++;
 	}
