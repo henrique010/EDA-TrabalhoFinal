@@ -70,21 +70,11 @@ public class LeftHeap <K extends Comparable<K>> implements Heap<K>{
 
 	@Override
 	public boolean contains(K key) {
-		return get(root, key) != null ? true : false;
+		for(K k : keys()) {
+			if(k == key) return true;
+		}
+		return false;
 	}
-	
-	private K get(Node r, K key) {
-		if(r == null)return null;
-		
-		int cmp =  key.compareTo(r.key);
-		
-		if(cmp < 0)return get(r.left,key);
-		
-		else if(cmp > 0)return get(r.right,key);
-		
-		else return r.key;
-	}
-
 	@Override
 	public boolean isEmpty() {
 		return root == null ? true : false;

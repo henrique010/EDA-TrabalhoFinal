@@ -21,9 +21,12 @@ public class App {
 		System.out.println(leftHeap.extractMin());
 		System.out.println(leftHeap.extractMin());
 		System.out.println(leftHeap.extractMin());
+		
 		System.out.println(leftHeap.min());
 		
 		System.out.println(leftHeap.keys());
+		
+		System.out.println(leftHeap.contains(20));
 		
 	}
 
