@@ -1,4 +1,8 @@
+//código feito com base nas informações desse site: https://www.geeksforgeeks.org/leftist-tree-leftist-heap/
+
 package br.ufc.crateus.leftheap;
+
+import java.util.LinkedList;
 
 public class LeftHeap <K extends Comparable<K>> implements Heap<K>{
 
@@ -22,80 +26,94 @@ public class LeftHeap <K extends Comparable<K>> implements Heap<K>{
 		
 	}
 	
-	private Node root;
-	private int size;
-	
+	private Node root;	
 	
 	@Override
-	public void insert(int i, K key) {
+	public void insert(K key) {
 		root = merge(root, new Node(key));
-		size++;
 	}
 	
-	
 	private Node merge(Node h1, Node h2) {
-		if(h1 == null) return h2;
-		if(h2 == null) return h1;
+	    if (h1 == null) return h2;
+	    
+	    else if (h2 == null) return h1; 
+	    
+	    else if (h1.key.compareTo(h2.key) < 0) return merge2(h1, h2); 
+	    
+	    else return merge2(h2, h1);
+	}
+	
+	private Node merge2(Node h1, Node h2) {
+		if(h1.left == null) h1.left = h2;
 		
-		if(h1.key.compareTo(h2.key) > 0) {
-			Node tmp = h1;
-			h1 = h2;
-			h2 = tmp;
-		}
-		if(h1.left == null)
-			h1.left = h2;
 		else {
 			h1.right = merge(h1.right,h2);
+			
 			if(h1.left.i < h1.right.i) {
 				Node tmp = h1.left;
 				h1.left = h1.right;
 				h1.right = tmp;
 			}
 			h1.i = h1.right.i + 1;
-			
 		}
 		return h1;
+	}
+
+	@Override
+	public K extractMin() {
+		K min = min();
+		root = merge(root.left, root.right);
 		
+		return min;
 	}
 
-	@Override
-	public int extractMin() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
-	public void decreaseKey(int i, K key) {
-		// TODO Auto-generated method stub
+	public boolean contains(K key) {
+		return get(root, key) != null ? true : false;
+	}
+	
+	private K get(Node r, K key) {
+		if(r == null)return null;
 		
-	}
-
-	@Override
-	public boolean contains(int i) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		int cmp =  key.compareTo(r.key);
+		
+		if(cmp < 0)return get(r.left,key);
+		
+		else if(cmp > 0)return get(r.right,key);
+		
+		else return r.key;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return root == null ? true : false;
 	}
 
 	@Override
 	public K min() {
-		// TODO Auto-generated method stub
-		return null;
+		return root.key;
+	}
+	
+	public Iterable<K> keys(){
+		LinkedList<K> keys = new LinkedList<K>();
+		keys(root, keys);
+		
+		return keys;
+	}
+	
+	private void keys(Node h1, LinkedList<K> keysList) {
+		if(h1 == null) return;
+		
+		keys(h1.left, keysList);
+		
+		keysList.add(h1.key);
+		
+		keys(h1.right, keysList);
 	}
 
 	@Override
-	public void delete(int i) {
+	public void delete(K key) {
 		// TODO Auto-generated method stub
 		
 	}

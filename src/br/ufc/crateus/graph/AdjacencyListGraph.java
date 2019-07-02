@@ -8,13 +8,13 @@ public class AdjacencyListGraph<T> implements Graph<T>{
 
 	private int V;
 	private int E;
-	private int currentVertices;
+	private int currentVertex;
 	private LinkedList<T> [] adj;
 	private SeparateChainingHashingST<T, Integer> tags;
 
 	public AdjacencyListGraph(int V) {
 		this.V = V;
-		this.currentVertices = 0;
+		this.currentVertex = 0;
 		this.E = 0;
 		this.adj = new LinkedList[V];
 		
@@ -25,7 +25,7 @@ public class AdjacencyListGraph<T> implements Graph<T>{
 	
 	@Override
 	public int countVertices() {
-		return currentVertices;
+		return currentVertex;
 	}
 
 	@Override
@@ -57,12 +57,12 @@ public class AdjacencyListGraph<T> implements Graph<T>{
 	public void addEdge(T v1, T v2) {
 	
 		if(!tags.contains(v1)) {
-			int index = currentVertices++;
+			int index = currentVertex++;
 			tags.put(v1, index);
 		} 
 		
 		if(!tags.contains(v2)) {
-			int index = currentVertices++;
+			int index = currentVertex++;
 			tags.put(v2, index);
 		}
 		
