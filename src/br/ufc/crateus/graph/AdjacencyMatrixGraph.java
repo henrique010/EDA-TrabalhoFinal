@@ -9,17 +9,17 @@ public class AdjacencyMatrixGraph<T> implements Graph<T>{
 	private int V;
 	private int E;
 	private int currentVertex;
-	private int[][] adj;
+	private boolean [][] adj;
 	private SeparateChainingHashingST<T, Integer> tags;
 	
 	public AdjacencyMatrixGraph(int V) {
 		this.V = V;
 		this.currentVertex = 0;
 		this.E = 0;
-		this.adj = new int[V][V];
+		this.adj = new boolean[V][V];
 		
 		for(Integer i=0; i<V; i++) {
-			for(Integer j=0; j<V; j++) adj[i][j] = 0;
+			for(Integer j=0; j<V; j++) adj[i][j] = false;
 		}
 		
 		this.tags = new SeparateChainingHashingST<T, Integer>(V);
@@ -52,7 +52,7 @@ public class AdjacencyMatrixGraph<T> implements Graph<T>{
 
 	@Override
 	public boolean contains(T v) {
-		return tags.contains(v) ? true : false;
+		return tags.contains(v);
 	}
 
 	@Override
@@ -67,8 +67,8 @@ public class AdjacencyMatrixGraph<T> implements Graph<T>{
 			tags.put(v2, index);
 		}
 		
-		adj[index(v1)][index(v2)] = 1;
-		adj[index(v2)][index(v1)] = 1;
+		adj[index(v1)][index(v2)] = true;
+		adj[index(v2)][index(v1)] = true;
 		
 		E++;
 	}
@@ -79,7 +79,7 @@ public class AdjacencyMatrixGraph<T> implements Graph<T>{
 		int index = tags.get(v);
 		
 		for(int i=0; i<currentVertex; i++) {
-			if(adj[index][i] != 0) adjacents.add(label(i));
+			if(adj[index][i]) adjacents.add(label(i));
 		}
 		return adjacents;
 	}
@@ -89,7 +89,7 @@ public class AdjacencyMatrixGraph<T> implements Graph<T>{
 		int index = tags.get(v);
 		int count = 0;
 		for(int i=0; i<V; i++) {
-			if(adj[index][i] == 1) count++;
+			if(adj[index][i]) count++;
 		}
 		return count;
 	}

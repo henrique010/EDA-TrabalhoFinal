@@ -50,7 +50,7 @@ public class AdjacencyListGraph<T> implements Graph<T>{
 
 	@Override
 	public boolean contains(T v) {
-		return tags.contains(v) ? true : false;
+		return tags.contains(v);
 	}
 
 	@Override

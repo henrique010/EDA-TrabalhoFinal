@@ -54,9 +54,9 @@ public class App {
 //		AdjacencyListGraph<String> fileGraph = new AdjacencyListGraph<String>(6);
 //		fileGraph = GraphUtils.readFromFile(new FileInputStream("testMovies.txt"), ",");
 		
-		AdjacencyListGraph<String> fileGraph = GraphUtils.readFromFile(new FileInputStream("movies.txt"), ",");
-		
-		System.out.println(fileGraph.countVertices());
+//		AdjacencyListGraph<String> fileGraph = GraphUtils.readFromFile(new FileInputStream("movies.txt"), ",");
+//		
+//		System.out.println(fileGraph.countVertices());
 		
 		
 	}
